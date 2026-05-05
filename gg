@@ -32,7 +32,7 @@ if not allowed then
 end
 
 if game.PlaceId == 606849621 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/Ok"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ryko228/vl/refs/heads/main/Ok"))()
 elseif game.PlaceId == 12355337193 then
 --loadstring(game:HttpGet("https://pastebin.com/raw/K6YT8dws"))()
 elseif game.PlaceId == 13772394625 then

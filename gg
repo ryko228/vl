@@ -48,17 +48,17 @@ elseif game.PlaceId == 189707 then
 elseif game.PlaceId == 127707120843339 then
 loadstring(game:HttpGet("https://pastebin.com/raw/56eK7HjT"))()
 elseif game.PlaceId == 9780994092 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/Tr"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ryko228/vl/refs/heads/main/Tr"))()
 elseif game.PlaceId == 109652885385286 then
 --loadstring(game:HttpGet("https://pastebin.com/raw/esgw1z6F"))()
 elseif game.PlaceId == 192800 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/PP"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ryko228/vl/refs/heads/main/PP"))()
 elseif game.PlaceId == 11156779721 then
 loadstring(game:HttpGet("https://pastebin.com/raw/XqZiC8pT"))()
 elseif game.PlaceId == 127794225497302 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/ab"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ryko228/vl/refs/heads/main/ab"))()
 elseif game.PlaceId == 70845479499574 then
-loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/nn"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ryko228/vl/refs/heads/main/nn"))()
 elseif game.PlaceId == 17516596118 then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/hs"))()
 else

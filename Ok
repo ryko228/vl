@@ -1646,7 +1646,7 @@ visual:Toggle("Nerf Items", _G.Nerf, function(v)
 end)
 
 local function tun()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/kipr987/Test/refs/heads/main/te"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ryko228/vl/refs/heads/main/te"))()
 
     local RunService = game:GetService("RunService")
     local Players = game:GetService("Players")

@@ -1,3 +1,11 @@
+_G.whitelist = {
+	["kipr987"] = true,
+	["milanka_sisi"] = {m = 6, d = 6, h = 8},
+	["gkhubi"] = {m = 5, d = 25, h = 13},
+	["milatakun"] = true,
+	["steechlove"] = {m = 5, d = 2, h = 18},
+	["rer_k"] = {m = 5, d = 9, h = 8},
+}
 local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
 function missing(t, f, fallback)
@@ -82,6 +90,7 @@ local defaultSaves = {
     spoiler = false,
     texture = false,
     drift = false,
+	puzle = false,
 }
 
 local function loadSaves()
@@ -138,7 +147,8 @@ local function saveCurrent()
         rim = _G.Rim,
         spoiler = _G.Sp,
         texture = _G.Txt,
-        drift = _G.Dr
+        drift = _G.Dr,
+		puzle = _G.puzle
 	}
 	pcall(writefile, SAVE_FILE, HttpService:JSONEncode(current))
 end
@@ -178,6 +188,7 @@ _G.Rim = saves.rim
 _G.Sp = saves.spoiler
 _G.Txt = saves.texture
 _G.Dr = saves.drift
+_G.puzle = saves.puzle
 
 print(saves.rim)
 task.spawn(function()
@@ -892,6 +903,100 @@ misc:Toggle("Anti Ragdoll", saves.Ragdoll, function(value)
 	_G.Ragdoll = value
 	saveCurrent()
 	onCharacterAdded(localPlayer.Character)
+end)
+
+_G.puzle = saves.puzle
+local s = 0
+
+-- Получаем сервисы
+local UserInputService = game:GetService("UserInputService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+
+-- Функция для получения позиции мыши на экране
+local function getMousePosition()
+    return UserInputService:GetMouseLocation()
+end
+
+-- Функция для получения объекта под мышью
+local function getMouseTarget()
+    local mousePos = getMousePosition()
+    local mouseRay = workspace.CurrentCamera:ScreenPointToRay(mousePos.X, mousePos.Y)
+    local raycastParams = RaycastParams.new()
+    raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+    raycastParams.FilterDescendantsInstances = {game:GetService("Players").LocalPlayer.Character}
+    
+    local raycastResult = workspace:Raycast(mouseRay.Origin, mouseRay.Direction * 1000, raycastParams)
+    
+    if raycastResult then
+        return raycastResult.Instance
+    end
+    return nil
+end
+
+local function findSpinnersParent(instance)
+    local current = instance
+    s = 0 -- спам без задержки
+
+    if instance.Rotation.X == 0 then return nil end
+
+    -- Близко к цели — замедляемся
+    if instance.Rotation.X >= 0 and instance.Rotation.X <= 80 then s = 0.3 end
+
+    while current do
+        if current.Parent and current.Parent.Name == "Spinners" then
+            return current.Parent
+        end
+        if current.Name == "Spinners" then
+            return current
+        end
+        current = current.Parent
+    end
+    return nil
+end
+
+local function puzzel2(instance)
+    local current = instance
+	s = .2
+	if instance.Transparency == .5 then return nil end
+	current = current.Parent
+	if current.Parent and current.Parent.Name == "Pieces" then
+		return current.Parent
+	end
+	if current.Name == "Pieces" then
+		return current
+	end
+    return nil
+end
+
+local function puzle()
+	while wait() and _G.puzle do
+		local target = getMouseTarget()
+		local spinnersParent = target and findSpinnersParent(target)
+		if spinnersParent then
+			-- Мышь на объекте Spinners - кликаем
+			local mousePos = getMousePosition()
+			
+			-- Нажатие кнопки
+			VirtualInputManager:SendMouseButtonEvent(mousePos.X, mousePos.Y, 0, true, game, 0)
+			VirtualInputManager:SendMouseButtonEvent(mousePos.X, mousePos.Y, 0, false, game, 0)
+			wait(s)
+		end
+		local puzzle2 = target and puzzel2(target)
+		if puzzle2 then
+		-- Мышь на объекте Spinners - кликаем
+		local mousePos = getMousePosition()
+
+		-- Нажатие кнопки
+		VirtualInputManager:SendMouseButtonEvent(mousePos.X, mousePos.Y, 0, true, game, 0)
+		VirtualInputManager:SendMouseButtonEvent(mousePos.X, mousePos.Y, 0, false, game, 0)
+		wait(s)
+		end
+	end
+end
+misc:Toggle("Auto puzzle Museum",saves.puzle,function(v)
+	_G.puzle = v
+	saveCurrent()
+	puzle()
 end)
 
 localPlayer.CharacterAdded:Connect(onCharacterAdded)
